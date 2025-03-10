@@ -1,0 +1,11 @@
+
+<suite name="Test Suite">
+    <test name="Login and Logout Tests">
+        <classes>
+            <class name="com.test.cases.LoginTest"/>
+            <class name="com.test.cases.Loginwithinvalidusername"/>
+             <class name="com.test.cases.Loginwithinvalidpassword"/>
+              <class name="com.test.cases.Loginwithinvalidcredentials"/>
+        </classes>
+    </test>
+</suite>
