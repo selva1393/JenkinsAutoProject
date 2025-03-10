@@ -2,7 +2,7 @@ pipeline {
     agent any  // Runs on any available Jenkins agent
 
     tools {
-        maven 'Maven'  // Use the Maven installation configured in Jenkins
+        maven 'maven3'  // Use the Maven installation configured in Jenkins
     }
 
     environment {
