@@ -11,7 +11,7 @@ pipeline {
                             branches: [[name: '*/main']],
                             doGenerateSubmoduleConfigurations: false,
                             extensions: [[$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 10]],
-                            userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]
+                            userRemoteConfigs: [[url: 'https://github.com/selva1393/JenkinsAutoProject.git']]
                         ])
                     }
                 }
