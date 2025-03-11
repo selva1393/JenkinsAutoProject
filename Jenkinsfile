@@ -21,7 +21,7 @@ pipeline {
                             extensions: [[$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 10]],
                             userRemoteConfigs: [[
                                 url: 'https://github.com/selva1393/JenkinsAutoProject.git',
-                                credentialsId: 'your-jenkins-credential-id'  // Add this if your repo is private
+                                credentialsId: 'cd82e4f5-98e2-4386-ad1b-bdd89810968c'  // Add this if your repo is private
                             ]]
                         ])
                     }
