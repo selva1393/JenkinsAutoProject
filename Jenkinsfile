@@ -31,13 +31,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'mvn clean install -DskipTests'  // Skips tests during installation
+                bat 'mvn clean install -DskipTests'  // Skips tests during installation
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                sh 'mvn test'  // Runs your Selenium test cases
+                bat 'mvn test'  // Runs your Selenium test cases
             }
         }
 
