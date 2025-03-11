@@ -1,36 +1,32 @@
 pipeline {
-    agent any  // Runs on any available Jenkins agent
-
-    tools {
-        maven 'maven3'  // Use the Maven installation configured in Jenkins
-    }
-
-    environment {
-        BROWSER = "chrome"  // Define environment variable
-    }
+    agent any
 
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/selva1393/JenkinsAutoProject.git'  // Replace with your GitHub repo
+                script {
+                    retry(5) {  // Retry up to 5 times
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: '*/main']],
+                            doGenerateSubmoduleConfigurations: false,
+                            extensions: [[$class: 'CloneOption', noTags: false, reference: '', shallow: false, timeout: 10]],
+                            userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]
+                        ])
+                    }
+                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'mvn clean install'  // Builds the project & downloads dependencies
+                sh 'mvn clean install'
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                sh 'mvn test'  // Executes test cases
-            }
-        }
-
-        stage('Publish Test Results') {
-            steps {
-                junit '**/target/surefire-reports/*.xml'  // Publish JUnit test results
+                sh 'mvn test'  // Runs your Selenium test cases
             }
         }
     }
