@@ -65,7 +65,7 @@ post {
                 def totalTests = testResults.totalCount
                 def passedTests = totalTests - failedTests
                 emailext(
-    to: 'recipient@example.com',
+    to: 'selva80722@gmail.com',
     subject: "Jenkins Build ${currentBuild.fullDisplayName} - Test Results",
     body: """
         <p>Build ${currentBuild.fullDisplayName} completed.</p>
