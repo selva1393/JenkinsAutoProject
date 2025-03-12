@@ -55,10 +55,33 @@ pipeline {
         }
     }
 
-    post {
+post {
         always {
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             junit '**/target/surefire-reports/*.xml'
+            script {
+                def testResults = junit '**/target/surefire-reports/*.xml'
+                def failedTests = testResults.failCount
+                def totalTests = testResults.totalCount
+                def passedTests = totalTests - failedTests
+                emailext(
+                    subject: "Jenkins Build ${currentBuild.fullDisplayName} - Test Results",
+                    body: """
+                        <p>Build ${currentBuild.fullDisplayName} completed.</p>
+                        <p>Test Results:</p>
+                        <ul>
+                            <li>Total Tests: ${totalTests}</li>
+                            <li>Passed Tests: ${passedTests}</li>
+                            <li>Failed Tests: ${failedTests}</li>
+                        </ul>
+                        <p>For more details, check the Jenkins build: ${env.BUILD_URL}</p>
+                    """,
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                    mimeType: 'text/html',
+                    attachLog: true,
+                    attachmentsPattern: '**/target/*.jar'
+                )
+            }
         }
     }
 }
